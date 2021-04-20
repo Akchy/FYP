@@ -11,6 +11,9 @@ Then run flask
 ```
 FLASK_APP=app.py
 flask run
+
+set FLASK_APP=app.py # for Windows
+flask run
 ```
 
 This app is hosted on heroku - depression-level.herokuapp.com
