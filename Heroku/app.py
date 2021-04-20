@@ -1,10 +1,7 @@
-from flask import Flask, request, jsonify, request
-from skimage import io
-import tensorflow as tf
-import keras
+from flask import Flask, request, jsonify, request,render_template
+import tensorflow-cpu as tf 
 from keras.preprocessing import image
 import numpy as np
-import matplotlib.pyplot as plt
 import re
 import os
 
@@ -60,7 +57,7 @@ def sentiment_analysis(text_sent):
 
 @app.route('/')
 def main():
-    return "Hi"
+    return render_template('index.html')
 
 @app.route("/image", methods=["POST"])
 def facial_expression():
