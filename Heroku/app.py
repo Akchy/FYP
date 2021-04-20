@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, request,render_template
-import tensorflow-cpu as tf 
+import tensorflow as tf 
 from keras.preprocessing import image
 import numpy as np
 import re
