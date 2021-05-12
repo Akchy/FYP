@@ -19,9 +19,6 @@ neg = ('angry', 'disgust', 'fear', 'sad',)
 pos = ('happy','surprise')
 objects = ['angry', 'disgust', 'fear', 'happy', 'sad', 'surprise', 'neutral']
 
-def init():
-    global graph
-    graph = tf.get_default_graph()
 
 def sentiment_analysis(text_sent):
     model = tf.keras.models.load_model('sentiment_analysis.h5')
@@ -62,20 +59,20 @@ def emotion_recognition(filename):
             ind=i
     return ind,m
 
-# Function to load and prepare the image in right shape
-def read_image(filename):
-    # Load the image
-    img = image.load_img(filename, color_mode = "grayscale", target_size=(48, 48))
-    # Convert the image to array
-    img = image.img_to_array(img)
-    img = np.expand_dims(img, axis = 0)
-    img /=255
-    # Reshape the image into a sample of 1 channel
-    img = img.reshape(1, 48, 48, 1)
-    # Prepare it as pixel data
-    img = img.astype('float32')
-    img = img / 255.0   
-    return img
+def detect_face(filename)
+    # Read the input image
+    img = cv2.imread(filename)
+    # Convert into grayscale
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    # Load the cascade
+    face_cascade = cv2.CascadeClassifier('haarcascade_frontalface.xml')
+    # Detect faces
+    faces = face_cascade.detectMultiScale(gray, 1.1, 4)
+    # Draw rectangle around the faces and crop the faces
+    for (x, y, w, h) in faces:
+        cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), 2)
+        faces = img[y:y + h, x:x + w]
+        cv2.imwrite(filename, faces)
 
 #Allow files with extension png, jpg and jpeg
 ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg']
@@ -104,6 +101,7 @@ def predict():
             filename = file.filename
             file_path = os.path.join('static/images', filename) #file path for storing image
             file.save(file_path)
+            detect_face(file_path)
             ind, m = emotion_recognition(file_path)
             exp = objects[ind]
                 
@@ -119,6 +117,7 @@ def depression():
             filename = file.filename
             file_path = os.path.join('static/images', filename) #file path for storing image
             file.save(file_path)
+            detect_face(file_path)
             ind, m = emotion_recognition(file_path)
     
             if objects[ind] in neg:
