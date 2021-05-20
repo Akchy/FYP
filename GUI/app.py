@@ -2,6 +2,7 @@ from flask import Flask, render_template,jsonify, flash, request, url_for
 import numpy as np
 import pandas as pd
 import re
+import cv2
 import tensorflow as tf
 from numpy import array
 from tensorflow.keras.models import load_model
@@ -59,7 +60,7 @@ def emotion_recognition(filename):
             ind=i
     return ind,m
 
-def detect_face(filename)
+def detect_face(filename):
     # Read the input image
     img = cv2.imread(filename)
     # Convert into grayscale
