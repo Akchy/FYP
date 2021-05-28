@@ -20,7 +20,7 @@ jobs:
     - name: Set up Python version
       uses: actions/setup-python@v1
       with:
-        python-version: '3.6'
+        python-version: '3.8'
 
     - name: Create and start virtual environment
       run: |
@@ -59,4 +59,4 @@ jobs:
         with:
           app-name: 'flask-davish'
           slot-name: 'production'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_cc94079d197f46b1a959e9d99d58c67d }}
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_f0e106a87e3145ca8193301f05eea7af }}
