@@ -30,7 +30,7 @@
     <link rel='stylesheet prefetch' href='https://www.jqueryscript.net/demo/jQuery-Plugin-To-Create-Responsive-Scrolling-Bootstrap-Tabs/jquery.scrolling-tabs.css'>
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic'>
     <link rel='stylesheet prefetch' href='https://www.bts.com/fonts/digital-icons/style.css'>
-    <link rel='stylesheet' type='text/css' href='{{ url_for(' static ', filename='styling.css ')}}'>
+    <link rel='stylesheet' type='text/css' href='{{ url_for('static', filename='styling.css ')}}'>
     <style class="cp-pen-styles">
         /*digital colors */
         /* reset styles */
@@ -271,28 +271,7 @@
                         <span class="border border-primary">
             <img src="{{ user_image }}" alt="User Image" class="img-thumbnail">
           </span>
-        </div>
-      {% if detected == 0 %}
-        <div class="col-sm">
-          <h2>ERROR : FACE NOT DETECTED !!!</h2>
-        </div>
-      {% else %}
-        <div class="col-sm">
-          <h1>Expression <div class="alert alert-primary" role="alert">{{expression}}</div></h1>
-          <h2>Percentage <div class="alert alert-primary" role="alert">{{per}}</div></h2>
-        </div>
-      {% endif %}
-      </div>
-    </div>
-    
-    <!-----------------Sentiment Analysis Code Start Here-------------------------->
-    
-	  <div role="tabpanel" {% if pageType == "text" %} class="tab-pane active" {% else %} class="tab-pane" {% endif %} id="text">
-      <div class="row">
-		    <div class="col-lg-12">
-			    <h2>Enter the Text to get the Sentiment</h2>
-		    </div>
-	    </div>
+                    </div>
 
                     <div class="col-sm">
                         <h1>Expression
@@ -357,52 +336,56 @@
                                 <div class="col-md-6">
                                     <form action="/depression" method="post" enctype="multipart/form-data">
                                         <div class="input-group">
-                                            <label ">How do you feel?</label>
-                    <input name = "text " class = "form-control " placeholder = "Text "><br><br>
-                  </div>
-                  <div class="fileUpload btn btn-primary ">
-                    <label>Upload Your Image </label>
-                    <input type="file " name="file ">
-                    <br>
-                    <input type="submit " value="Submit ">
-                  </div>
-                </form>
-          	  </div>
-            </div>
-          </div>
-        </div>
+                                            <label>How do you feel?</label>
+                                            <input name="text" class="form-control " placeholder="Text "><br><br>
+                                        </div>
+                                        <div class="fileUpload btn btn-primary ">
+                                            <label>Upload Your Image </label>
+                                            <input type="file" name="file">
+                                            <br>
+                                            <input type="submit" value="Submit">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="col-md-3 ">
-          <span class="border border-primary ">
+                    <div class="col-md-3 ">
+                        <span class="border border-primary ">
             <img src="{{ user_image_dep }} " alt="User Image " class="img-thumbnail ">
           </span>
+                    </div>
+
+                    <div class="col-md-3 ">
+                        <h2>Depression Status
+                            <div class="alert alert-primary " role="alert ">{{ status }}</div>
+                        </h2>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
-        
-      {% if detected == 0 %}
-        <div class="col-sm">
-          <h2>ERROR : FACE NOT DETECTED !!!</h2>
-        </div>
-      {% else %}
-        <div class="col-md-3">
-          <h2>Depression Status <div class="alert alert-primary" role="alert">{{ status }}</div></h2>
-        </div>
-      {% endif %}
-      
-      </div>
+
     </div>
-    
-	</div>
 
-</div>
+    <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
+    <script src='https://code.jquery.com/jquery-1.12.0.min.js'></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+    <script src='https://www.jqueryscript.net/demo/jQuery-Plugin-To-Create-Responsive-Scrolling-Bootstrap-Tabs/jquery.scrolling-tabs.js'></script>
+    <script>
+        $('.nav-tabs').scrollingTabs({
+            enableSwiping: true
+        });
 
-<script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='https://code.jquery.com/jquery-1.12.0.min.js'></script><script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script><script src='https://www.jqueryscript.net/demo/jQuery-Plugin-To-Create-Responsive-Scrolling-Bootstrap-Tabs/jquery.scrolling-tabs.js'></script>
-<script >$('.nav-tabs').scrollingTabs({
-  enableSwiping: true
-});
+        $('.nav-tabs a').click(function() {
+            $(".tab-content ").animate({
+                scrollTop: 0
+            }, 600);
+        });
+        //# sourceURL=pen.js
+    </script>
+</body>
 
-$('.nav-tabs a').click(function(){
-    $(".tab-content ").animate({ scrollTop: 0 }, 600);
- });
-//# sourceURL=pen.js
-</script>
-</body></html>
+</html>
