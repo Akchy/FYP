@@ -223,11 +223,16 @@ body {
             <img src="{{ user_image }}" alt="User Image" class="img-thumbnail">
           </span>
         </div>
-      
+      {% if detected == 0 %}
+        <div class="col-sm">
+          <h2>ERROR : FACE NOT DETECTED !!!</h2>
+        </div>
+      {% else %}
         <div class="col-sm">
           <h1>Expression <div class="alert alert-primary" role="alert">{{expression}}</div></h1>
           <h2>Percentage <div class="alert alert-primary" role="alert">{{per}}</div></h2>
         </div>
+      {% endif %}
       </div>
     </div>
     
@@ -307,11 +312,17 @@ body {
             <img src="{{ user_image_dep }}" alt="User Image" class="img-thumbnail">
           </span>
         </div>
-  
+        
+      {% if detected == 0 %}
+        <div class="col-sm">
+          <h2>ERROR : FACE NOT DETECTED !!!</h2>
+        </div>
+      {% else %}
         <div class="col-md-3">
           <h2>Depression Status <div class="alert alert-primary" role="alert">{{ status }}</div></h2>
         </div>
-
+      {% endif %}
+      
       </div>
     </div>
     

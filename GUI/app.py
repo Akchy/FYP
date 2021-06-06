@@ -12,6 +12,7 @@ from keras.preprocessing.sequence import pad_sequences
 
 from keras.preprocessing import image
 import os
+import cv2
 
 app = Flask(__name__)
 
@@ -59,7 +60,7 @@ def emotion_recognition(filename):
             ind=i
     return ind,m
 
-def detect_face(filename)
+def detect_face(filename):
     # Read the input image
     img = cv2.imread(filename)
     # Convert into grayscale
@@ -73,6 +74,8 @@ def detect_face(filename)
         cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), 2)
         faces = img[y:y + h, x:x + w]
         cv2.imwrite(filename, faces)
+    if len(faces) == 0:
+        return 0
 
 #Allow files with extension png, jpg and jpeg
 ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg']
@@ -101,11 +104,12 @@ def predict():
             filename = file.filename
             file_path = os.path.join('static/images', filename) #file path for storing image
             file.save(file_path)
-            detect_face(file_path)
+            face_detected = detect_face(file_path)
             ind, m = emotion_recognition(file_path)
             exp = objects[ind]
+            m = m*100
                 
-    return render_template('home.html', expression = exp, per = m, user_image = file_path, pageType = "image")
+    return render_template('home.html', expression = exp, per = m, user_image = file_path, pageType = "image", detected = face_detected)
         
 @app.route('/depression', methods=['GET','POST'])  #single image
 def depression():
@@ -117,7 +121,7 @@ def depression():
             filename = file.filename
             file_path = os.path.join('static/images', filename) #file path for storing image
             file.save(file_path)
-            detect_face(file_path)
+            face_detected = detect_face(file_path)
             ind, m = emotion_recognition(file_path)
     
             if objects[ind] in neg:
@@ -138,7 +142,7 @@ def depression():
             elif f_result==0 and s_result==1:
                 depression = 'Average'
     
-    return render_template('home.html', status = depression, user_image_dep = file_path, pageType = "depression")
+    return render_template('home.html', status = depression, user_image_dep = file_path, pageType = "depression", detected = face_detected)
 
 if __name__ == "__main__":
     app.run(debug=True)
